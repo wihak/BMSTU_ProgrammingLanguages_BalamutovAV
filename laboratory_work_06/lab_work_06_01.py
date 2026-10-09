@@ -1,21 +1,33 @@
-from math import tan, cos, sin, pi, log
+from math import sin, cos
 
-def function_1(a, x):
-    return tan(x**2/2-1)**2+(2*cos(x-pi/6))/(1/2+sin(a)**2)
+def calculate_z1(a):
+    return 1 - 1 / 4 * sin(2 * a) ** 2  + cos(2 * a)
 
-def function_2(x):
-    return pow(2, log(3-cos(pi/4+2*x), 3+sin(x))/(1+tan(2*x/pi)**2))
+def calculate_z2(a):
+    return cos(a) ** 2 + cos(a) ** 4
 
-with open("input.txt", "r") as input_file, \
-        open("output.txt", "w") as output_file:
-    header = "    a       x        y1        y2"
-    print(header)
-    output_file.write(header + "\n")
-    for line in input_file:
-        a, x = line.split()
-        output_line = "{0:7.2f} {1:7.2f} {2:9.4f} {3:9.4f}".format(float(a),
-                                                                    float(x),
-                                                                    function_1(float(a), float(x)),
-                                                                    function_2(float(x)))
-        print(output_line)
-        output_file.write(output_line + "\n")
+fi = open("lab1_in.txt", "rt")
+fo = open("lab1_ou.txt", "wt")
+
+fi.readline()
+fi.readline()
+
+
+fo.write("+=========+=========+=========+\n")
+fo.write("I    A    I   Z1    I   Z2    I\n")
+fo.write("+=========+=========+=========+\n")
+
+
+for line in fi:
+    if line == "\n":
+        continue
+    
+    a = float(line.split()[0])
+    z1 = calculate_z1(a)
+    z2 = calculate_z2(a)
+    
+    fo.write("I {0:7.2f} I {1:7.4f} I {2:7.4f} I\n".format(a, z1, z2))
+    fo.write("+=========+=========+=========+\n")
+
+fi.close()
+fo.close()

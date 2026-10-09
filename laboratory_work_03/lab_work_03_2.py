@@ -1,21 +1,33 @@
-from math import *
-from random import *
+# Вариант 5
+from random import uniform
 
-flag = False
-print(" X Y Res")
-print("-------------------")
-for n in range(10):
-    x = uniform(-1, 4)
-    y = uniform(-1, 10)
-    if (x < -1) or (x > 4):
-        flag = False #False
-    if (((x >= -1) and (x < 1) and (y >= 2*x+2) and (y <= x**3-4*x**2+x+6))
-        or ((x >= 1) and (x <= 4) and (y >= x**3-4*x**2+x+6) and (y <= 2*x+2))):
-        flag = True
-    else:
-        flag = False
-    print("{0: 7.2f} {1: 7.2f}".format(x, y), end=' ')
-    if flag:
-        print("Yes")
-    else:
-        print("No")
+try:
+    r = float(input('Введите значение R: '))
+except ValueError:
+    print('\nЗначение R должно быть числом!')
+    print('Попробуйте еще раз, введя корректные аргументы')
+
+if r < 0:
+    print('Радиус не может быть отрицательным!')
+else:
+    print("\n+-----------+-----------+-----------+")
+    print("I     X     I     Y     I    RES    I")
+    print("+-----------+-----------+-----------+")
+    flag = False
+    for _ in range(10):
+        x = uniform(-r, r)
+        y = uniform(-r, r)
+
+        if (((x >= 0 and y >= 0) or (x <= 0 and y <= 0)) and (x ** 2 + y ** 2 <= r ** 2)) or (x <= 0 and y >= 0 and (y <= x + r)):
+            flag = True
+        else:
+            flag = False
+
+        print(f'I {x:9.4f} I {y:9.4f} I', end='')
+
+        if flag:
+            print('    Yes    I')
+        else:
+            print('    No     I')
+
+    print("+-----------+-----------+-----------+")

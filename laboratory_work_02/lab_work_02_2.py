@@ -1,17 +1,21 @@
-flag = False
-print('Введите координаты X и Y для точки:')
-x = float(input('X='))
-y = float(input('Y='))
+# Вариант 5
 
-if (-1 <= x < 1) and (2*x+2 <= y <= x**3-4*x**2+x+6) \
-        or (1 <= x <= 4) and (x**3-4*x**2+x+6 <= y <= 2*x+2):
-    flag = True
+try:
+    r = float(input('Введите значение R: '))
+    x = float(input('Введите значение X: '))
+    y = float(input('Введите значение Y: '))
+except ValueError:
+    print('\nАргументы R, X, Y должны быть числом!')
+    print('Попробуйте еще раз, введя корректные аргументы R, X, Y')
 else:
-    flag = False
+    if r < 0:
+        print('Радиус не может быть отрицательным!')
+    else:
+        in_area = False
+        if (((x >= 0 and y >= 0) or (x <= 0 and y <= 0)) and (x ** 2 + y ** 2 <= r ** 2)) or (x <= 0 and y >= 0 and (y <= x + r)):
+            in_area = True
+        if in_area:
+            print(f'\nТочка ({x:.2f}, {y:.2f}) попадает в область!')
+        else:
+            print(f'\nТочка ({x:.2f}, {y:.2f}) не попадает в область!')
 
-print("Точка X={0: 6.2f} Y={1: 6.2f}".format(x, y), end=" ")
-if flag:
-    print("попадает", end=" ")
-else:
-    print("не попадает", end=" ")
-print("в область.")
